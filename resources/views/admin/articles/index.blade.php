@@ -1,0 +1,6 @@
+@extends('admin.layouts.app')
+@section('title', 'Artikel')
+@section('content')
+<div class="heading"><div><h1>Artikel / Berita</h1><p>Kelola konten berita Cartiera dan gambarnya.</p></div><div><a class="btn gold" href="{{ route('admin.reports.articles') }}">Cetak PDF</a> <a class="btn" href="{{ route('admin.articles.create') }}">+ Tambah</a></div></div>
+<div class="card"><div class="table-wrap"><table><thead><tr><th>Gambar</th><th>Judul</th><th>Isi</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody>@forelse($articles as $article)<tr><td>@if($article->image)<img class="thumb" src="{{ str_starts_with($article->image, 'images/') ? asset($article->image) : asset('storage/'.$article->image) }}">@endif</td><td><strong>{{ $article->title }}</strong></td><td>{{ Str::limit($article->content, 70) }}</td><td>{{ $article->created_at?->format('d/m/Y') }}</td><td><div class="actions"><a class="btn light" href="{{ route('admin.articles.edit', $article) }}">Ubah</a><form method="POST" action="{{ route('admin.articles.destroy', $article) }}" onsubmit="return confirm('Hapus artikel ini?')">@csrf @method('DELETE')<button class="btn red">Hapus</button></form></div></td></tr>@empty<tr><td colspan="5" class="empty">Belum ada artikel.</td></tr>@endforelse</tbody></table></div><div class="pagination">{{ $articles->links() }}</div></div>
+@endsection

@@ -1,0 +1,6 @@
+@extends('admin.layouts.app')
+@section('title', 'Produk dan Layanan')
+@section('content')
+<div class="heading"><div><h1>Produk / Layanan</h1><p>Kelola koleksi dan layanan unggulan Cartiera.</p></div><a class="btn" href="{{ route('admin.services.create') }}">+ Tambah</a></div>
+<div class="card"><div class="table-wrap"><table><thead><tr><th>Gambar</th><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead><tbody>@forelse($services as $service)<tr><td>@if($service->image)<img class="thumb" src="{{ str_starts_with($service->image, 'images/') ? asset($service->image) : asset('storage/'.$service->image) }}">@endif</td><td><strong>{{ $service->name }}</strong></td><td>{{ Str::limit($service->description, 90) }}</td><td><div class="actions"><a class="btn light" href="{{ route('admin.services.edit', $service) }}">Ubah</a><form method="POST" action="{{ route('admin.services.destroy', $service) }}" onsubmit="return confirm('Hapus produk/layanan ini?')">@csrf @method('DELETE')<button class="btn red">Hapus</button></form></div></td></tr>@empty<tr><td colspan="4" class="empty">Belum ada produk atau layanan.</td></tr>@endforelse</tbody></table></div><div class="pagination">{{ $services->links() }}</div></div>
+@endsection
