@@ -12,6 +12,8 @@
 /.vscode
 /.zed
 /auth.json
+/.composer-cache
+/.composer-home
 /node_modules
 /public/build
 /public/hot

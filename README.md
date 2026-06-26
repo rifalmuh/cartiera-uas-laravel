@@ -23,7 +23,8 @@ Pengembangan backend Company Profile PT Cartiera Indonesia untuk tugas Project S
 
 ## Akun Administrator
 
-- URL: `http://localhost/latihan_project%20-%20Copy/public/login`
+- URL lokal: `http://127.0.0.1:8765/login`
+- URL hosting: isi setelah deploy Railway/Render selesai
 - Email: `admin@cartiera.id`
 - Password: `Cartiera123!`
 
@@ -57,3 +58,22 @@ Project menggunakan SQLite secara default. File database berada di `database/dat
 ```bash
 php artisan test
 ```
+
+## Deploy ke Railway
+
+Project ini sudah disiapkan untuk deploy dari GitHub ke Railway.
+
+1. Buka Railway, pilih **New Project**.
+2. Pilih **Deploy from GitHub repo**.
+3. Pilih repo `rifalmuh/cartiera-uas-laravel`.
+4. Tambahkan variables dari file `.env.deploy.example`.
+5. Isi `APP_KEY` dari output:
+
+```bash
+php artisan key:generate --show
+```
+
+6. Setelah deploy sukses, buka tab **Settings > Networking** lalu klik **Generate Domain**.
+7. Ubah variable `APP_URL` menjadi domain Railway yang sudah dibuat, lalu redeploy.
+
+File `railway.json` menjalankan build Laravel dan Vite, sedangkan `scripts/railway-start.sh` menyiapkan SQLite, migrasi, seed data awal, storage link, dan server Laravel.
