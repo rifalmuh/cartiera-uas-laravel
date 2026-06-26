@@ -24,7 +24,7 @@ Pengembangan backend Company Profile PT Cartiera Indonesia untuk tugas Project S
 ## Akun Administrator
 
 - URL lokal: `http://127.0.0.1:8765/login`
-- URL hosting: isi setelah deploy Railway/Render selesai
+- URL hosting: `https://cartiera-uas-laravel-production.up.railway.app`
 - Email: `admin@cartiera.id`
 - Password: `Cartiera123!`
 
