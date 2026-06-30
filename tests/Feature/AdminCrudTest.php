@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Article;
 use App\Models\Company;
 use App\Models\Contact;
+use App\Models\FashionCollection;
 use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -44,6 +45,49 @@ class AdminCrudTest extends TestCase
         $this->assertDatabaseMissing('articles', ['id' => $article->id]);
     }
 
+    public function test_fashion_collection_crud_validates_and_uploads_image(): void
+    {
+        Storage::fake('public');
+
+        $this->withSession($this->adminSession())->post('/admin/fashion-collections', [
+            'id_fashion' => 'FSH-999',
+            'nama_item' => 'Cartiera Test Shirt',
+            'ukuran' => 'L',
+            'warna' => 'Navy',
+            'brand' => 'Cartiera',
+            'gambar' => UploadedFile::fake()->image('fashion.jpg'),
+        ])->assertRedirect('/admin/fashion-collections');
+
+        $item = FashionCollection::firstOrFail();
+        Storage::disk('public')->assertExists($item->gambar);
+
+        $this->withSession($this->adminSession())->put('/admin/fashion-collections/'.$item->id, [
+            'id_fashion' => 'FSH-999',
+            'nama_item' => 'Cartiera Test Shirt Updated',
+            'ukuran' => 'XL',
+            'warna' => 'Hitam',
+            'brand' => 'Cartiera',
+        ])->assertRedirect('/admin/fashion-collections');
+
+        $this->assertDatabaseHas('fashion_collections', [
+            'id_fashion' => 'FSH-999',
+            'nama_item' => 'Cartiera Test Shirt Updated',
+            'ukuran' => 'XL',
+        ]);
+
+        $this->withSession($this->adminSession())->post('/admin/fashion-collections', [
+            'id_fashion' => '',
+            'nama_item' => '',
+            'ukuran' => '',
+            'warna' => '',
+            'brand' => '',
+        ])->assertSessionHasErrors(['id_fashion', 'gambar', 'nama_item', 'ukuran', 'warna', 'brand']);
+
+        $this->withSession($this->adminSession())->delete('/admin/fashion-collections/'.$item->id)
+            ->assertRedirect();
+        $this->assertDatabaseMissing('fashion_collections', ['id' => $item->id]);
+    }
+
     public function test_all_required_content_types_can_be_created(): void
     {
         Storage::fake('public');
@@ -74,8 +118,20 @@ class AdminCrudTest extends TestCase
     public function test_report_download_returns_pdf(): void
     {
         Article::create(['title' => 'Artikel Report', 'content' => 'Isi artikel untuk laporan PDF Cartiera.', 'image' => null]);
+        FashionCollection::create([
+            'id_fashion' => 'FSH-100',
+            'gambar' => null,
+            'nama_item' => 'Cartiera Report Item',
+            'ukuran' => 'M',
+            'warna' => 'Putih',
+            'brand' => 'Cartiera',
+        ]);
 
         $this->withSession($this->adminSession())->get('/admin/reports/articles')
+            ->assertOk()
+            ->assertHeader('content-type', 'application/pdf');
+
+        $this->withSession($this->adminSession())->get('/admin/reports/fashion-collections')
             ->assertOk()
             ->assertHeader('content-type', 'application/pdf');
     }

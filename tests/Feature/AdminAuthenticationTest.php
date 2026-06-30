@@ -20,11 +20,11 @@ class AdminAuthenticationTest extends TestCase
     {
         $user = User::create([
             'name' => 'Admin Test',
-            'email' => 'admin@test.id',
+            'username' => 'admin_test',
             'password' => Hash::make('secret123'),
         ]);
 
-        $this->post('/login', ['email' => $user->email, 'password' => 'secret123'])
+        $this->post('/login', ['username' => $user->username, 'password' => 'secret123'])
             ->assertRedirect('/admin')
             ->assertSessionHas('admin_user_id', $user->id);
 
@@ -36,8 +36,8 @@ class AdminAuthenticationTest extends TestCase
 
     public function test_invalid_login_is_rejected(): void
     {
-        $this->post('/login', ['email' => 'wrong@example.com', 'password' => 'wrong-password'])
-            ->assertSessionHasErrors('email')
+        $this->post('/login', ['username' => 'wrong_admin', 'password' => 'wrong-password'])
+            ->assertSessionHasErrors('username')
             ->assertSessionMissing('admin_user_id');
     }
 }

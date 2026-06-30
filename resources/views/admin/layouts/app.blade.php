@@ -15,6 +15,7 @@
             <div class="nav-title">Utama</div>
             <a class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">Dashboard</a>
             <div class="nav-title">Kelola Konten</div>
+            <a class="{{ request()->routeIs('admin.fashion-collections.*') ? 'active' : '' }}" href="{{ route('admin.fashion-collections.index') }}">Data Koleksi Fashion</a>
             <a class="{{ request()->routeIs('admin.companies.*') ? 'active' : '' }}" href="{{ route('admin.companies.index') }}">Profil Perusahaan</a>
             <a class="{{ request()->routeIs('admin.articles.*') ? 'active' : '' }}" href="{{ route('admin.articles.index') }}">Artikel / Berita</a>
             <a class="{{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">Produk / Layanan</a>

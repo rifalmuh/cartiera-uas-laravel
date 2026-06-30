@@ -1,31 +1,32 @@
-# Cartiera UAS - Laravel Company Profile
+# Cartiera UAS - Laravel Company Profile dan CRUD Fashion
 
-Pengembangan backend Company Profile PT Cartiera Indonesia untuk tugas Project Sebelum UAS.
+Pengembangan aplikasi Laravel 12 untuk UAS Rekayasa Web. Project tetap memakai identitas PT Cartiera Indonesia sebagai company profile, lalu dilengkapi modul utama sesuai digit terakhir NIM `5`, yaitu Data Koleksi Fashion.
 
 ## Identitas Mahasiswa
 
 - Nama: Muhamad Rifaldi
 - NIM: 221011700805
 - Kelas: SIFE008
-- Judul: Backend Company Profile PT Cartiera Indonesia Berbasis Laravel
+- Judul: Company Profile PT Cartiera Indonesia dan CRUD Data Koleksi Fashion Berbasis Laravel
 
 ## Fitur
 
-- Login dan logout manual menggunakan Session Laravel dan `Hash`.
+- Login dan logout manual menggunakan username, password, Session Laravel, dan `Hash`.
 - Middleware khusus untuk melindungi seluruh halaman administrator.
 - Dashboard ringkasan jumlah data.
+- CRUD Data Koleksi Fashion sesuai soal UAS: ID Fashion, Gambar, Nama Item, Ukuran, Warna, dan Brand.
 - CRUD Profil Perusahaan, Artikel/Berita, Produk/Layanan, dan Kontak.
 - Validasi Laravel pada seluruh form.
-- Upload gambar artikel dan produk/layanan (JPG, PNG, WEBP, maksimal 2 MB).
-- Export laporan artikel ke PDF menggunakan DomPDF.
+- Upload gambar koleksi fashion, artikel, dan produk/layanan (JPG, PNG, WEBP, maksimal 2 MB).
+- Export laporan Data Koleksi Fashion dan artikel ke PDF menggunakan DomPDF.
 - Frontend company profile terhubung langsung dengan data backend.
 - Feature test untuk autentikasi, middleware, CRUD, upload, validasi, dan PDF.
 
 ## Akun Administrator
 
-- URL lokal: `http://127.0.0.1:8765/login`
+- URL lokal: `http://127.0.0.1:8000/login`
 - URL hosting: `https://cartiera-uas-laravel-production.up.railway.app`
-- Email: `admin@cartiera.id`
+- Username: `admin`
 - Password: `Cartiera123!`
 
 ## Instalasi
@@ -46,12 +47,13 @@ Project menggunakan SQLite secara default. File database berada di `database/dat
 1. Buka website publik.
 2. Login administrator.
 3. Tampilkan dashboard dan jumlah data.
-4. Tambah artikel dengan upload gambar.
-5. Ubah artikel.
-6. Hapus artikel.
-7. Tampilkan CRUD profil, produk/layanan, dan kontak.
-8. Klik **Cetak PDF** dan perlihatkan hasil laporan.
-9. Logout dan tunjukkan bahwa `/admin` kembali meminta login.
+4. Buka menu **Data Koleksi Fashion**.
+5. Tambah koleksi fashion dengan upload gambar.
+6. Ubah data koleksi fashion.
+7. Hapus data koleksi fashion.
+8. Klik **Cetak PDF** dan perlihatkan hasil laporan koleksi fashion.
+9. Tampilkan CRUD profil, produk/layanan, artikel, dan kontak sebagai pelengkap company profile.
+10. Logout dan tunjukkan bahwa `/admin` kembali meminta login.
 
 ## Pengujian
 

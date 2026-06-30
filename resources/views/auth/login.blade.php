@@ -24,11 +24,11 @@
             @if($errors->any())<div class="alert">{{ $errors->first() }}</div>@endif
             <form method="POST" action="{{ route('login.attempt') }}">
                 @csrf
-                <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="username" autofocus required></div>
+                <div class="field"><label for="username">Username</label><input id="username" name="username" value="{{ old('username') }}" autocomplete="username" autofocus required></div>
                 <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
                 <button class="btn" type="submit">Login ke Dashboard</button>
             </form>
-            <div class="hint"><strong>Akun demo</strong><br>Email: admin@cartiera.id<br>Password: Cartiera123!</div>
+            <div class="hint"><strong>Akun demo</strong><br>Username: admin<br>Password: Cartiera123!</div>
         </div>
     </section>
 </div>

@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title', 'Data Koleksi Fashion - Cartiera')
+@section('content')
+<section class="hero"><div class="eyebrow">UAS REKAYASA WEB</div><h1>Data Koleksi Fashion</h1><p>Halaman publik untuk menampilkan data koleksi fashion Cartiera berdasarkan kategori digit terakhir NIM 5. Data ini dikelola melalui dashboard admin dengan fitur CRUD lengkap, validasi, upload gambar, dan export PDF.</p><a class="btn gold" href="{{ route('login') }}">Masuk Admin</a></section>
+<section class="section"><div class="section-head"><h2>Koleksi Fashion</h2><p class="muted">ID Fashion, gambar, nama item, ukuran, warna, dan brand.</p></div><div class="grid">@forelse($fashionCollections as $item)<article class="card">@if($item->gambar)<img src="{{ str_starts_with($item->gambar, 'images/') ? asset($item->gambar) : asset('storage/'.$item->gambar) }}" alt="{{ $item->nama_item }}">@endif<div class="card-body"><div class="eyebrow">{{ $item->id_fashion }}</div><h3>{{ $item->nama_item }}</h3><p class="muted">Ukuran: {{ $item->ukuran }}<br>Warna: {{ $item->warna }}<br>Brand: {{ $item->brand }}</p></div></article>@empty<div class="empty">Belum ada data koleksi fashion.</div>@endforelse</div></section>
+@endsection
